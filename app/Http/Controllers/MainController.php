@@ -12,20 +12,20 @@ class MainController extends Controller
         $url = 'https://startuphana.astanahub.com/api/barcode/scanned';
 
         Log::error($request->all());
+        Log::error(http_build_query(['text' => $request->text]));
         $ch = curl_init();
 
         curl_setopt_array($ch, [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POST => true,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTPHEADER => [
                 "Accept: application/json",
                 "Content-Type: application/json"
             ],
-            CURLOPT_POSTFIELDS => http_build_query(['text' => $request->text]),
+            CURLOPT_POSTFIELDS => '?'.http_build_query(['text' => $request->text]),
 
         ]);
 
