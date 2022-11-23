@@ -18,7 +18,7 @@ class MainController extends Controller
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POST => true,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTPHEADER => [
@@ -45,19 +45,9 @@ class MainController extends Controller
         Log::error($err);
 //        dd($not_decoded);
         Log::error($result);
-//        Log::error(\GuzzleHttp\json_decode(strval($result)));
-
-//        var_dump($not_decoded);
-//        $response = json_decode(strval($not_decoded));
-//        try {
-//            $result = \GuzzleHttp\json_decode($result);
-//        }
-//        catch (\Exception $e){
-//            return response()->json(['success' => false], 422);
-//        }
-//        Log::error($result);
         curl_close($ch);
 
         return ['success' => true];
     }
+
 }

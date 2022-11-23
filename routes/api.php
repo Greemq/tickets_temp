@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::group([],function(){
     Route::post('/barcode_scan',[\App\Http\Controllers\MainController::class,'scanBarcode']);
+    Route::get('/barcode_scan',[\App\Http\Controllers\MainController::class,'scanBarcodeGet']);
 });
