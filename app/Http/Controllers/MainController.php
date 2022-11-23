@@ -29,8 +29,9 @@ class MainController extends Controller
 
         Log::error(curl_getinfo($ch, CURLINFO_EFFECTIVE_URL));
 
-//        $result = curl_exec($ch);
+        $result = curl_exec($ch);
         $err = curl_error($ch);
+        Log::error($result);
         Log::error($err);
         curl_close($ch);
 
