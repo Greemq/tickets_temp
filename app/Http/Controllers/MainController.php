@@ -9,10 +9,8 @@ class MainController extends Controller
 {
     public function scanBarcode(Request $request)
     {
-        $url = 'https://startuphana.astanahub.com/api/barcode/scanned';
+        $url = 'https://startuphana.astanahub.com/api/barcode/scanned?text='.$request->text;
 
-        Log::error($request->all());
-        Log::error(http_build_query(['text' => $request->text]));
         $ch = curl_init();
 
         curl_setopt_array($ch, [
@@ -25,26 +23,15 @@ class MainController extends Controller
                 "Accept: application/json",
                 "Content-Type: application/json"
             ],
-            CURLOPT_POSTFIELDS => '?'.http_build_query(['text' => $request->text]),
+//            CURLOPT_POSTFIELDS =>http_build_query(['text' => $request->text]),
 
         ]);
 
-//        curl_setopt($ch, CURLOPT_URL, $url);
-//        curl_setopt($ch, CURLOPT_HEADER, false);
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
-//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//        if (isset($post)) {
-//        curl_setopt($ch, CURLOPT_POST, 1);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['text' => $request->text]));
+        Log::error(curl_getinfo($ch, CURLINFO_EFFECTIVE_URL));
 
-//        }
-        $result = curl_exec($ch);
+//        $result = curl_exec($ch);
         $err = curl_error($ch);
         Log::error($err);
-//        dd($not_decoded);
-        Log::error($result);
         curl_close($ch);
 
         return ['success' => true];
